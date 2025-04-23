@@ -19,7 +19,7 @@ public class Price {
             throw new IllegalArgumentException("Price value cannot be negative");
         }
 
-        var roundedValue = (float) Math.round(value * 100) / 100;
+        var roundedValue = (float)(Math.round(value * 100) / 100);
         return new Price(roundedValue);
     }
 }
