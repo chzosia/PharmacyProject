@@ -3,7 +3,6 @@ package org.example.pharmacy.service;
 import org.example.pharmacy.controller.dto.LoginRequestDto;
 import org.example.pharmacy.controller.dto.LoginResponseDto;
 import org.example.pharmacy.infrastructure.repository.IUserRepository;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

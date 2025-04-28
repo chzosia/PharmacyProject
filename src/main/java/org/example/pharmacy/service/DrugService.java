@@ -1,9 +1,8 @@
 package org.example.pharmacy.service;
 
-import org.example.pharmacy.controller.dto.DrugDto;
+import org.example.pharmacy.controller.dto.DrugResponseDto;
 import org.example.pharmacy.infrastructure.entity.DrugEntity;
 import org.example.pharmacy.infrastructure.repository.IDrugRepository;
-import org.example.pharmacy.service.model.DrugModel;
 import org.example.pharmacy.service.valueObjects.Price;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,9 +28,9 @@ public class DrugService {
 
     }
 
-    public DrugDto create(DrugEntity drug) {
+    public DrugResponseDto create(DrugEntity drug) {
         var price = Price.create((float) drug.getPrice());
-        var drugModel = new DrugModel(null, drug.getName(), price, drug.getDose());
+
 
         var drugEntity = new DrugEntity();
         drugEntity.setCode(drug.getCode());
@@ -40,13 +39,13 @@ public class DrugService {
         drugEntity.setAvailableUnits(drug.getAvailableUnits());
         drugEntity.setDose(drug.getDose());
         drugEntity.setForm(drug.getForm());
-        drugEntity.setPrice(drug.getPrice());
+        drugEntity.setPrice(price.getValue());
         drugEntity.setSymptom(drug.getSymptom());
 
 
         drugRepository.save(drugEntity);
 
-        return new DrugDto(
+        return new DrugResponseDto(
                 drugEntity.getId(),
                 drugEntity.getCode(),
                 drugEntity.getName(),

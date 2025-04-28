@@ -2,7 +2,6 @@ package org.example.pharmacy.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.example.pharmacy.infrastructure.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,7 +20,6 @@ public class JwtService {
     @Value("${security.token.secret}")
     private  String SECRET_KEY;
 
-    //TODO: Use login DTO as input
 
     public String createToken(UserEntity user) {
         //subject can be id or username or email or anything else
@@ -29,7 +27,7 @@ public class JwtService {
 
        var token = Jwts.builder()
                 .subject(user.getUsername())
-                .claim("roles", "USER")
+                //.claim("roles", "USER")
                 .claim("id", user.getId())
                 .issuedAt(new Date(now))
                 .expiration(new Date(now+TOKEN_VALIDITY))
@@ -43,7 +41,9 @@ public class JwtService {
     }
 
     public boolean isTokenExpired(String token) {
-        return getExpirationDate(token).after(new Date());
+        //return getExpirationDate(token).before(new Date());
+        var exp = getExpirationDate(token);
+        return exp.before(new Date());
     }
 
     public String getUsername(String token) {

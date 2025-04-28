@@ -6,16 +6,12 @@ import org.example.pharmacy.controller.dto.UserResponseDto;
 import org.example.pharmacy.infrastructure.entity.UserEntity;
 import org.example.pharmacy.infrastructure.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.swing.*;
 
 @Service
 public class UserService {
     private final IUserRepository userRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     @Autowired

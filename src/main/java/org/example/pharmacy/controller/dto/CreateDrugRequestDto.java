@@ -1,11 +1,12 @@
 package org.example.pharmacy.controller.dto;
 
-public class DrugDto {
+import jakarta.validation.constraints.Size;
 
-    private Long id;
+public class CreateDrugRequestDto {
 
     private String code;
 
+    @Size(min=2, max=30, message = "Name must be between 3 and 50 characters long")
     private String name;
 
     private String manufacturer;
@@ -16,29 +17,10 @@ public class DrugDto {
 
     private String form;
 
-    private double price;
+    @Size(min=0, message = "Price cannot be negative")
+    private Float price;
 
     private String symptom;
-
-    public DrugDto(Long id, String code, String name, String manufacturer, int availableUnits, String dose, String form, double price, String symptom) {
-        this.id = id;
-        this.code = code;
-        this.name = name;
-        this.manufacturer = manufacturer;
-        this.availableUnits = availableUnits;
-        this.dose = dose;
-        this.form = form;
-        this.price = price;
-        this.symptom = symptom;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getCode() {
         return code;
@@ -92,7 +74,7 @@ public class DrugDto {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

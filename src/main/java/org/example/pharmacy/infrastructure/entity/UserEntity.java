@@ -3,7 +3,7 @@ package org.example.pharmacy.infrastructure.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", schema = "pharmacy")
 public class UserEntity {
 
     @Id
@@ -39,4 +39,5 @@ public class UserEntity {
     public void setPassword(String password) {
         this.password = password;
     }
+
 }
