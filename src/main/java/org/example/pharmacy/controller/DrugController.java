@@ -39,4 +39,15 @@ public class DrugController {
         return drugService.create(drug);
     }
 
+    @PatchMapping("/{id}")
+    public DrugResponseDto update(@PathVariable long id, @RequestBody DrugEntity drug) {
+        var updatedDrug = drugService.update(id, drug);
+        return new DrugResponseDto(updatedDrug.getId(), updatedDrug.getCode(), updatedDrug.getName(), updatedDrug.getManufacturer(), updatedDrug.getAvailableUnits(), updatedDrug.getDose(), updatedDrug.getForm(), updatedDrug.getPrice(), updatedDrug.getSymptom());
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable long id) {
+        drugService.delete(id);
+    }
+
 }

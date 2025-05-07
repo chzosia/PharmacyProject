@@ -9,7 +9,7 @@ public class Price {
         this.value = value;
     }
 
-    public float getValue() {
+    public double getValue() {
         return value;
     }
 

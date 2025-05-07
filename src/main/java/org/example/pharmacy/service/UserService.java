@@ -38,10 +38,29 @@ public class UserService {
         return new UserResponseDto(user.getId(), user.getUsername());
     }
 
-    //nei dziala jeszcze
     public UserResponseDto getUserByUsername(String username) {
         var user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundError(username));
         return new UserResponseDto(user.getId(), user.getUsername());
+    }
+
+    // Method for partial update
+    public UserResponseDto updateUser(Long id, CreateUserRequestDto userDto) {
+        UserEntity existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundError(id));
+
+        // Only update the fields that are not null in the request
+        if (userDto.getUsername() != null) existingUser.setUsername(userDto.getUsername());
+        if (userDto.getPassword() != null) existingUser.setPassword(passwordEncoder.encode(userDto.getPassword()));
+
+        userRepository.save(existingUser);
+
+        return new UserResponseDto(existingUser.getId(), existingUser.getUsername());
+
+    }
+
+    public void deleteUser(Long id) {
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundError(id));
+        userRepository.delete(user);
     }
 
 

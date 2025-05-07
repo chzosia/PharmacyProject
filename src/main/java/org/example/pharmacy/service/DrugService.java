@@ -29,7 +29,7 @@ public class DrugService {
     }
 
     public DrugResponseDto create(DrugEntity drug) {
-        var price = Price.create((float) drug.getPrice());
+        var price = Price.create(drug.getPrice().floatValue());
 
 
         var drugEntity = new DrugEntity();
@@ -58,11 +58,28 @@ public class DrugService {
         );
     }
 
-
     public void delete(long id) {
         if(!drugRepository.existsById(id)){
-            throw new RuntimeException();
+            throw new DrugNotFoundError();
         }
         drugRepository.deleteById(id);
+    }
+
+    public DrugEntity update(long id, DrugEntity drug) {
+        DrugEntity existingDrug = drugRepository.findById(id)
+                .orElseThrow(() -> new DrugNotFoundError());
+
+        // Only update the fields that are not null in the request
+        if (drug.getCode() != null) existingDrug.setCode(drug.getCode());
+        if (drug.getName() != null) existingDrug.setName(drug.getName());
+        if (drug.getManufacturer() != null) existingDrug.setManufacturer(drug.getManufacturer());
+        if (drug.getAvailableUnits() != null) existingDrug.setAvailableUnits(drug.getAvailableUnits());
+        if (drug.getDose() != null) existingDrug.setDose(drug.getDose());
+        if (drug.getForm() != null) existingDrug.setForm(drug.getForm());
+        if (drug.getPrice() != null)
+            existingDrug.setPrice(Price.create(drug.getPrice().floatValue()).getValue());
+        if (drug.getSymptom() != null) existingDrug.setSymptom(drug.getSymptom());
+
+        return drugRepository.save(existingDrug);
     }
 }

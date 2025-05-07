@@ -36,4 +36,14 @@ public class UserController {
         return userService.getUserByUsername(principal.getName());
     }
 
+    @PatchMapping("/{id}")
+    public UserResponseDto update(@PathVariable Long id, @RequestBody CreateUserRequestDto user) {
+        return userService.updateUser(id, user);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        userService.deleteUser(id);
+    }
+
 }

@@ -24,19 +24,19 @@ public class DrugEntity {
 
     @Basic
     @Column(name = "available_units")
-    private int availableUnits;
+    private Integer availableUnits;
 
     @Basic
     @Column(name = "dose")
     private String dose;
 
     @Basic
-    @Column(name = "form") // e.g., Tablet, Syrup, Injection
+    @Column(name = "form")
     private String form;
 
     @Basic
     @Column(name = "price")
-    private double price;
+    private Double price;
 
     @Basic
     @Column(name = "symptom")
@@ -75,11 +75,11 @@ public class DrugEntity {
         this.manufacturer = manufacturer;
     }
 
-    public int getAvailableUnits() {
+    public Integer getAvailableUnits() {
         return availableUnits;
     }
 
-    public void setAvailableUnits(int availableUnits) {
+    public void setAvailableUnits(Integer availableUnits) {
         this.availableUnits = availableUnits;
     }
 
@@ -99,11 +99,11 @@ public class DrugEntity {
         this.form = form;
     }
 
-    public double getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
