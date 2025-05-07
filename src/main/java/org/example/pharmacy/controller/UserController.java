@@ -7,6 +7,8 @@ import org.example.pharmacy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -27,6 +29,11 @@ public class UserController {
     @PostMapping()
     public CreateUserResponseDto createUser(@RequestBody CreateUserRequestDto user) {
         return userService.createUser(user);
+    }
+
+    @GetMapping("/me")
+    public UserResponseDto getMe(Principal principal) {
+        return userService.getUserByUsername(principal.getName());
     }
 
 }

@@ -20,9 +20,9 @@ public class JwtService {
     @Value("${security.token.secret}")
     private  String SECRET_KEY;
 
+//Karolinka ;)
 
     public String createToken(UserEntity user) {
-        //subject can be id or username or email or anything else
         long now = System.currentTimeMillis();
 
        var token = Jwts.builder()
@@ -32,7 +32,7 @@ public class JwtService {
                 .issuedAt(new Date(now))
                 .expiration(new Date(now+TOKEN_VALIDITY))
                 .signWith(generateKey())
-                .compact(); //the recommended algorithm is HmacSHA512
+                .compact();
        return token;
     }
 
@@ -41,9 +41,8 @@ public class JwtService {
     }
 
     public boolean isTokenExpired(String token) {
-        //return getExpirationDate(token).before(new Date());
         var exp = getExpirationDate(token);
-        return exp.before(new Date());
+        return exp.before(new Date()); // the auth mistake was here
     }
 
     public String getUsername(String token) {

@@ -5,6 +5,7 @@ import org.example.pharmacy.controller.dto.CreateUserResponseDto;
 import org.example.pharmacy.controller.dto.UserResponseDto;
 import org.example.pharmacy.infrastructure.entity.UserEntity;
 import org.example.pharmacy.infrastructure.repository.IUserRepository;
+import org.example.pharmacy.service.errors.UserNotFoundError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,12 @@ public class UserService {
 
     public UserResponseDto getUser(long id) {
         var user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        return new UserResponseDto(user.getId(), user.getUsername());
+    }
+
+    //nei dziala jeszcze
+    public UserResponseDto getUserByUsername(String username) {
+        var user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundError(username));
         return new UserResponseDto(user.getId(), user.getUsername());
     }
 

@@ -3,6 +3,7 @@ package org.example.pharmacy.service;
 import org.example.pharmacy.controller.dto.DrugResponseDto;
 import org.example.pharmacy.infrastructure.entity.DrugEntity;
 import org.example.pharmacy.infrastructure.repository.IDrugRepository;
+import org.example.pharmacy.service.errors.DrugNotFoundError;
 import org.example.pharmacy.service.valueObjects.Price;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,8 @@ public class DrugService {
         return drugRepository.findAll();
     }
 
-    //TODO: change the returned value
     public DrugEntity getOne (long id) {
-        return drugRepository.findById(id).orElseThrow(() -> new RuntimeException("Drug not found"));
+        return drugRepository.findById(id).orElseThrow(() -> new DrugNotFoundError());
 
     }
 
